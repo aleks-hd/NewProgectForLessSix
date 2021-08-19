@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.MainFragment">
+
+    <LinearLayout
+        android:id="@+id/viewLinearContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/postFromServer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Получить данные с сервера"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/latEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Широта"
+            android:inputType="numberDecimal" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/lonEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Долгота"
+            android:inputType="numberDecimal" />
+
+
+        <TextView
+            android:id="@+id/nameCity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Наименование населенного пункта" />
+        <TextView
+            android:id="@+id/temperature"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Температура" />
+        <TextView
+            android:id="@+id/windSpeed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Скорость ветра" />
+        <TextView
+            android:id="@+id/typeOfWeather"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Тип погоды" />
+    </LinearLayout>
+
+
+    <FrameLayout
+        android:id="@+id/loadingLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#12000000"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+    </FrameLayout>
+</LinearLayout>
