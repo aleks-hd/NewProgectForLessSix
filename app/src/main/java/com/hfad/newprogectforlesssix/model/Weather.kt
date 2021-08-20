@@ -11,7 +11,7 @@ class Weather( val nameSity: String = "not Name",
 data class Weather(val fact: Fact?, val info: Info?)
 data class Fact(
     val temp: Int?,
-    val wind_speed: Int?,
+    val wind_speed: Double?,
     val condition: String?
 )
 
