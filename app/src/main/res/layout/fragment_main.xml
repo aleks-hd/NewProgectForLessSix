@@ -11,7 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/postFromServerService"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Получить данные с сервера через Service"/>
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/postFromServer"
             android:layout_width="match_parent"
