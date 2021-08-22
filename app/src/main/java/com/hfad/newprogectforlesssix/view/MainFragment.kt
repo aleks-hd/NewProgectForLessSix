@@ -3,26 +3,28 @@ package com.hfad.newprogectforlesssix.view
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.hfad.newprogectforlesssix.AppState
 import com.hfad.newprogectforlesssix.MainService
-import com.hfad.newprogectforlesssix.R
 import com.hfad.newprogectforlesssix.ReqFromServer
 import com.hfad.newprogectforlesssix.viewmodel.MainViewModel
 import com.hfad.newprogectforlesssix.databinding.FragmentMainBinding
+import com.hfad.newprogectforlesssix.model.Fact
+import com.hfad.newprogectforlesssix.model.Info
 import com.hfad.newprogectforlesssix.model.Weather
-import java.util.*
-
 
 class MainFragment : Fragment() {
     private var viewModel: MainViewModel = MainViewModel()
     private var _binding: FragmentMainBinding? = null
+
     private val binding get() = _binding
     private val loadresultReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(content: Context?, intent: Intent?) {
@@ -39,6 +41,17 @@ class MainFragment : Fragment() {
         override fun onFailed(throwable: Throwable) {
             TODO("Not yet implemented")
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        context?.let {
+            LocalBroadcastManager.getInstance(it).registerReceiver(
+                loadresultReceiver,
+                IntentFilter("LOAD_DATA_SERVER")
+            )
+        }
+
     }
 
     override fun onCreateView(
@@ -68,8 +81,6 @@ class MainFragment : Fragment() {
                     var lonEditText: String = binding?.lonEdit?.text.toString()
                     putExtra("lat", latEditText)
                     putExtra("lon", lonEditText)
-
-                    // putExtra("WARNING", onLoadListener )
                 })
             }
         }
@@ -95,8 +106,19 @@ class MainFragment : Fragment() {
 
     //Результат работы Сервиса
     private fun loadDataFromServerService(content: Context?, intent: Intent?) {
-        val temp = intent?.getStringExtra("TEMP")
-        Log.i("TEMP","Температура: ${temp}")
+        val temp = intent?.getIntExtra("TEMP", 0)
+        val windSpeed = intent?.getDoubleExtra("WIND_SPEED", 0.0)
+        val condition = intent?.getStringExtra("CONDITION")
+        val url = intent?.getStringExtra("URL")
+        val weatherNewFromService = Weather(Fact(temp, windSpeed, condition), Info(url))
+        if (intent?.getIntExtra("SUCCESS", 0) == 1) {
+            Toast.makeText(
+                context,
+                "Загрузка данных с помощью сервиса\n произошла успешно",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+        setData(weatherNewFromService)
     }
 
     companion object {

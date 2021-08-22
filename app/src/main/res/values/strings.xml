@@ -3,4 +3,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hello_service">SERVICE</string>
+    <string name="service">Получить данные с сервера через Service</string>
+    <string name="fromServer">Получить данные с сервера</string>
+    <string name="shirota">Широта</string>
+    <string name="dolgota">Долгота</string>
+    <string name="temp">Температура</string>
+    <string name="wendSpeed">Скорость ветра</string>
+    <string name="typWeathr">Тип погоды</string>
 </resources>

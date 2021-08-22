@@ -11,52 +11,55 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/postFromServerService"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Получить данные с сервера через Service"/>
+            android:text="@string/service" />
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/postFromServer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Получить данные с сервера"/>
+            android:text="@string/fromServer" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/latEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Широта"
+            android:hint="@string/shirota"
             android:inputType="numberDecimal" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/lonEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Долгота"
+            android:hint="@string/dolgota"
             android:inputType="numberDecimal" />
-
 
         <TextView
             android:id="@+id/nameCity"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="Наименование населенного пункта" />
+            android:layout_height="match_parent" />
+
         <TextView
             android:id="@+id/temperature"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Температура" />
+            android:hint="@string/temp" />
+
         <TextView
             android:id="@+id/windSpeed"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Скорость ветра" />
+            android:hint="@string/wendSpeed" />
+
         <TextView
             android:id="@+id/typeOfWeather"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Тип погоды" />
+            android:hint="@string/typWeathr" />
     </LinearLayout>
 
 

@@ -4,7 +4,6 @@ import android.app.IntentService
 
 import android.content.Intent
 import android.os.Build
-import android.os.Handler
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
@@ -24,15 +23,14 @@ class MainService(name: String = "MainService") : IntentService(name) {
     private val broadcastIntent = Intent("LOAD_DATA_SERVER")
 
     override fun onHandleIntent(intent: Intent?) {
-        intent?.getStringExtra("lat")?.let { createLogMessage(it) }
-        intent?.getStringExtra("lon")?.let { createLogMessage(it) }
-       val lat = intent?.getStringExtra("lat")
+        val lat = intent?.getStringExtra("lat")
         val lon = intent?.getStringExtra("lon")
-        requestFromServer(lat,lon)
+        requestFromServer(lat, lon)
     }
+
     @RequiresApi(Build.VERSION_CODES.N)
     private fun requestFromServer(lat: String?, lon: String?) {
-       lateinit var urlConnection: HttpURLConnection
+        lateinit var urlConnection: HttpURLConnection
         try {
             val uri = URL("https://api.weather.yandex.ru/v2/informers?lat=${lat}&lon=${lon}")
             try {
@@ -47,7 +45,7 @@ class MainService(name: String = "MainService") : IntentService(name) {
 
                 val weatherFS: Weather = Gson().fromJson(getLines(bufferRead), Weather::class.java)
                 onResponse(weatherFS)
-               } catch (e: Exception) {
+            } catch (e: Exception) {
                 Log.e("", "Error connection", e)
                 e.printStackTrace()
             } finally {
@@ -63,10 +61,10 @@ class MainService(name: String = "MainService") : IntentService(name) {
     private fun onResponse(weatherFS: Weather) {
         val fact = weatherFS.fact
         val info = weatherFS.info
-        if (fact==null && info ==null){
+        if (fact == null && info == null) {
             onEmtyResponese()
-        } else{
-            onSuccessResponce(fact?.temp, fact?.wind_speed,fact?.condition,info?.url)
+        } else {
+            onSuccessResponce(fact?.temp, fact?.wind_speed, fact?.condition, info?.url)
         }
     }
 
@@ -74,44 +72,26 @@ class MainService(name: String = "MainService") : IntentService(name) {
         TODO("Not yet implemented")
     }
 
-    private fun onSuccessResponce(temp: Int?, windSpeed: Double?, condition: String?, url: String?) {
+    private fun onSuccessResponce(
+        temp: Int?,
+        windSpeed: Double?,
+        condition: String?,
+        url: String?
+    ) {
 
-        broadcastIntent.putExtra("TEMP",temp)
+
+        broadcastIntent.putExtra("TEMP", temp)
         broadcastIntent.putExtra("WIND_SPEED", windSpeed)
         broadcastIntent.putExtra("CONDITION", condition)
-        broadcastIntent.putExtra("URL",url)
+        broadcastIntent.putExtra("URL", url)
+        broadcastIntent.putExtra("SUCCESS", 1)
         LocalBroadcastManager.getInstance(this).sendBroadcast(broadcastIntent)
 
     }
 
 
-
     private fun getLines(bufferRead: BufferedReader): String {
-            return bufferRead.lines().collect(Collectors.joining("\n"))
-        }
-
-    override fun onCreate() {
-        super.onCreate()
-        createLogMessage("onCreate")
-    }
-
-    override fun onStart(intent: Intent?, startId: Int) {
-        super.onStart(intent, startId)
-        createLogMessage("onStart")
-    }
-
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        createLogMessage("onStartCommand")
-        return super.onStartCommand(intent, flags, startId)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        createLogMessage("onDestroy")
-    }
-
-    private fun createLogMessage(message: String) {
-        Log.d(TAG, message)
+        return bufferRead.lines().collect(Collectors.joining("\n"))
     }
 
 

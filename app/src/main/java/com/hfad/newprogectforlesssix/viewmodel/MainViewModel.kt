@@ -6,8 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.hfad.newprogectforlesssix.AppState
 
 
-class MainViewModel(private val liveDataToObserver: MutableLiveData<AppState> = MutableLiveData()
-/*private val repositotyImp :RepositoryImp = RepositoryImp()*/
+class MainViewModel(
+    private val liveDataToObserver: MutableLiveData<AppState> = MutableLiveData()
+
 ) :
     ViewModel() {
 

@@ -3,7 +3,6 @@ package com.hfad.newprogectforlesssix
 import android.os.Build
 import android.os.Handler
 import android.util.Log
-import android.view.View
 import androidx.annotation.RequiresApi
 import com.google.gson.Gson
 import com.hfad.newprogectforlesssix.model.Weather
