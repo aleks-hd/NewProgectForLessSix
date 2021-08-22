@@ -10,4 +10,5 @@
     <string name="temp">Температура</string>
     <string name="wendSpeed">Скорость ветра</string>
     <string name="typWeathr">Тип погоды</string>
+    <string name="okhttp">Получить данные с сервера использую OkHttp</string>
 </resources>
