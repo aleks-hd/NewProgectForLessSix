@@ -1,6 +1,7 @@
 package com.hfad.newprogectforlesssix.model
 
-data class Weather(val fact: Fact?, val info: Info?)
+
+data class Weather(val fact: Fact? , val info: Info?)
 data class Fact(
     val temp: Int?,
     val wind_speed: Double?,

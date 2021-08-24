@@ -69,13 +69,17 @@ class MainFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel.getData().observe(viewLifecycleOwner, Observer { render(it) })
-        //viewModel.getWeatherFromServer()
 
         binding?.postFromServer?.setOnClickListener {
-            var latEditText: String = binding?.latEdit?.text.toString()
-            var lonEditText: String = binding?.lonEdit?.text.toString()
-            val loader = ReqFromServer(onLoadListener, latEditText, lonEditText)
-            loader.requestOnClick()
+            var latEditText: Double = binding?.latEdit?.text.toString().toDouble()
+            var lonEditText: Double = binding?.lonEdit?.text.toString().toDouble()
+            viewModel.getWeatherFromServer(latEditText,lonEditText)
+
+
+            /* var latEditText: String = binding?.latEdit?.text.toString()
+                var lonEditText: String = binding?.lonEdit?.text.toString()
+                val loader = ReqFromServer(onLoadListener, latEditText, lonEditText)
+                loader.requestOnClick()*/
         }
 
         binding?.postFromServerService?.setOnClickListener {
