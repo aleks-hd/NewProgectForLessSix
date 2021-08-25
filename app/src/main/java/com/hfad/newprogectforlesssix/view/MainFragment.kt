@@ -4,26 +4,29 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.gson.Gson
 import com.hfad.newprogectforlesssix.AppState
 import com.hfad.newprogectforlesssix.MainService
 import com.hfad.newprogectforlesssix.ReqFromServer
-import com.hfad.newprogectforlesssix.viewmodel.MainViewModel
 import com.hfad.newprogectforlesssix.databinding.FragmentMainBinding
 import com.hfad.newprogectforlesssix.model.Fact
 import com.hfad.newprogectforlesssix.model.Info
 import com.hfad.newprogectforlesssix.model.Weather
+import com.hfad.newprogectforlesssix.viewmodel.MainViewModel
 import okhttp3.*
 import java.io.IOException
+import  com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
+
 
 class MainFragment : Fragment() {
     private var viewModel: MainViewModel = MainViewModel()
@@ -116,7 +119,23 @@ class MainFragment : Fragment() {
         binding?.windSpeed?.text = weatherDataDTO.fact?.wind_speed.toString()
         binding?.temperature?.text = weatherDataDTO.fact?.temp.toString()
         binding?.typeOfWeather?.text = weatherDataDTO.fact?.condition.toString()
+
+
+
+        val iconName = weatherDataDTO.fact?.icon.toString()
+        setIcon(iconName)
     }
+
+    private fun setIcon(iconName: String) {
+
+            GlideToVectorYou.justLoadImage(
+                activity,
+                Uri.parse("https://yastatic.net/weather/i/icons/blueye/color/svg/${iconName}.svg"),
+                binding?.iconImage
+                )
+
+        }
+
 
     //Результат работы Сервиса
     private fun loadDataFromServerService(content: Context?, intent: Intent?) {
@@ -124,7 +143,8 @@ class MainFragment : Fragment() {
         val windSpeed = intent?.getDoubleExtra("WIND_SPEED", 0.0)
         val condition = intent?.getStringExtra("CONDITION")
         val url = intent?.getStringExtra("URL")
-        val weatherNewFromService = Weather(Fact(temp, windSpeed, condition), Info(url))
+        val icon = intent?.getStringExtra("ICON")
+        val weatherNewFromService = Weather(Fact(temp, windSpeed, condition,icon), Info(url))
         if (intent?.getIntExtra("SUCCESS", 0) == 1) {
             Toast.makeText(
                 context,
